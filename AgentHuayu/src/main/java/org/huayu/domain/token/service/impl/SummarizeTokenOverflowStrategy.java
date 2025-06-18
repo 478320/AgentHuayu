@@ -25,7 +25,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** 摘要策略Token超限处理实现 将超出阈值的早期消息生成摘要，保留摘要和最新消息 */
-public class SummarizeTokenOverflowStrategy implements TokenOverflowStrategy {
+public class  SummarizeTokenOverflowStrategy implements TokenOverflowStrategy {
 
     /** 摘要消息的特殊角色标识 */
     private static final String SUMMARY_ROLE = "summary";

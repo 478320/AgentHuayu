@@ -7,6 +7,7 @@ import org.huayu.infrastructure.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,6 +46,9 @@ public class SessionDomainService {
         session.setId(sessionId);
         session.setUserId(userId);
         session.setTitle(title);
+        LocalDateTime now = LocalDateTime.now();
+        session.setCreatedAt(now);
+        session.setUpdatedAt(now);
         sessionRepository.checkedUpdate(session, Wrappers.<SessionEntity>lambdaUpdate()
                 .eq(SessionEntity::getId, sessionId).eq(SessionEntity::getUserId, userId));
     }
@@ -58,6 +62,9 @@ public class SessionDomainService {
         session.setAgentId(agentId);
         session.setUserId(userId);
         session.setTitle("新会话");
+        LocalDateTime now = LocalDateTime.now();
+        session.setCreatedAt(now);
+        session.setUpdatedAt(now);
         sessionRepository.insert(session);
         return session;
     }

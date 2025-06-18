@@ -4,7 +4,7 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
-import org.huayu.application.llm.model.enums.ModelType;
+import org.huayu.domain.llm.model.enums.ModelType;
 
 
 import java.sql.CallableStatement;

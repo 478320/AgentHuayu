@@ -1,5 +1,6 @@
 package org.huayu.infrastructure.transport;
 
+import dev.langchain4j.model.chat.response.ChatResponse;
 import org.huayu.application.conversation.dto.AgentChatResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -88,6 +89,19 @@ public class SseMessageTransport implements MessageTransport<SseEmitter> {
             throw new RuntimeException(e);
         } finally {
             connection.complete();
+        }
+    }
+
+    @Override
+    public void sendMessage(SseEmitter connection, String content, boolean isDone,
+                            String provider, String model) {
+        try {
+            AgentChatResponse response = new AgentChatResponse();
+            response.setContent(content);
+            response.setDone(isDone);
+            connection.send(response);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

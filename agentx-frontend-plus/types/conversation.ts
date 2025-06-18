@@ -80,7 +80,6 @@ export interface Message {
   updatedAt?: string
   tasks?: any[] // 任务列表
   taskId?: string // 任务ID
-  fileUrls?: string[] // 附件文件URL列表
 }
 
 // 创建会话请求参数

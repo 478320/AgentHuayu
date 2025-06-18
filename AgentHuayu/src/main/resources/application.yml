@@ -17,7 +17,7 @@ spring:
     name: AgentX
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:agentx}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:agenthuayu}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:123456}
   jackson:

@@ -165,6 +165,13 @@ public class ChatMessageHandler extends AbstractMessageHandler {
             @Override
             public void onPartialResponse(String partialResponse) {
                 // 发送部分消息
+                transport.sendMessage(
+                        connection,
+                        partialResponse,
+                        false,
+                        environment.getProvider().getName(),
+                        environment.getModel().getModelId()
+                );
             }
 
             @Override
@@ -182,6 +189,13 @@ public class ChatMessageHandler extends AbstractMessageHandler {
                 llmMessageEntity.setContent(completeResponse.aiMessage().text());
 
                 // 发送完成消息
+                transport.sendMessage(
+                        connection,
+                        "",
+                        true,
+                        environment.getProvider().getName(),
+                        environment.getModel().getModelId()
+                );
 
                 transport.completeConnection(connection);
 

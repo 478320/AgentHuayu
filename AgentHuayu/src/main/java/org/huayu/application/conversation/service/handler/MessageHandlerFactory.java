@@ -13,7 +13,7 @@ enum MessageHandlerType {
 
 /** 消息处理器工厂 根据智能体类型选择适合的消息处理器 */
 @Component
-public class gitMessageHandlerFactory {
+public class MessageHandlerFactory {
 
     private final ApplicationContext applicationContext;
 

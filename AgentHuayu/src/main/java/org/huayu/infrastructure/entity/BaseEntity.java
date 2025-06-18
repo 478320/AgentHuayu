@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 
 public class BaseEntity {
 
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "created_at", fill = FieldFill.INSERT)
     protected LocalDateTime createdAt;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "updated_at", fill = FieldFill.INSERT_UPDATE)
     protected LocalDateTime updatedAt;
 
     @TableLogic

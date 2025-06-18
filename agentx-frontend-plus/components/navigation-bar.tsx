@@ -2,9 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { Database, FileText, Home, Menu, Search, Settings, PenToolIcon as Tool, UploadCloud, LogOut, Wrench } from "lucide-react"
-import { toast } from "@/hooks/use-toast"
+import { usePathname } from "next/navigation"
+import { Database, FileText, Home, Menu, Search, Settings, PenToolIcon as Tool, UploadCloud } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -18,7 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { deleteCookie } from "@/lib/utils"
 
 const navItems = [
   {
@@ -37,15 +35,14 @@ const navItems = [
     icon: Database,
   },
   {
-    name: "工具市场",
+    name: "工具",
     href: "/tools",
-    icon: Wrench,
+    icon: Tool,
   },
 ]
 
 export function NavigationBar() {
   const pathname = usePathname()
-  const router = useRouter()
   const [open, setOpen] = useState(false)
 
   // Check if current path matches the menu item's href
@@ -54,23 +51,6 @@ export function NavigationBar() {
       return true // Main page also counts as explore
     }
     return pathname === href || pathname.startsWith(`${href}/`)
-  }
-
-  const handleLogout = () => {
-    // 清除localStorage中的token
-    localStorage.removeItem("auth_token")
-    
-    // 清除cookie中的token
-    deleteCookie("token")
-    
-    // 显示退出成功提示
-    toast({
-      title: "成功",
-      description: "退出登录成功"
-    })
-    
-    // 跳转到登录页
-    router.push("/login")
   }
 
   return (
@@ -131,6 +111,10 @@ export function NavigationBar() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="hidden md:flex">
+              <UploadCloud className="mr-2 h-4 w-4" />
+              插件
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
@@ -148,6 +132,7 @@ export function NavigationBar() {
                   </Avatar>
                   <div>
                     <div className="font-medium">xhy</div>
+                    <div className="text-xs text-muted-foreground">xhy@example.com</div>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -155,12 +140,6 @@ export function NavigationBar() {
                   <Link href="/settings/profile">
                     <Settings className="mr-2 h-4 w-4" />
                     个人设置
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/settings/general">
-                    <Settings className="mr-2 h-4 w-4" />
-                    通用设置
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -182,10 +161,7 @@ export function NavigationBar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  退出登录
-                </DropdownMenuItem>
+                <DropdownMenuItem>退出登录</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

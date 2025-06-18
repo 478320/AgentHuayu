@@ -28,4 +28,14 @@ public interface MessageTransport<T> {
      * @param connection 连接对象
      * @param error 错误对象 */
     void handleError(T connection, Throwable error);
+
+    /**
+     * 发送消息
+     * @param connection 连接对象
+     * @param content 消息内容
+     * @param isDone 是否完成
+     * @param provider 服务商名称
+     * @param model 模型名称
+     */
+    void sendMessage(T connection, String content, boolean isDone, String provider, String model);
 }

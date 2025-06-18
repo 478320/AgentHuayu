@@ -1,5 +1,6 @@
 package org.huayu.application.conversation;
 
+import org.huayu.application.conversation.assembler.MessageAssembler;
 import org.huayu.application.conversation.dto.AgentPreviewRequest;
 import org.huayu.application.conversation.dto.ChatRequest;
 
@@ -102,8 +103,23 @@ public class ConversationAppService {
     }
 
 
+    /**
+     * 获取会话中的消息列表
+     *
+     * @param sessionId 会话id
+     * @param userId    用户id
+     * @return 消息列表
+     */
     public List<MessageDTO> getConversationMessages(String sessionId, String userId) {
-        return null;
+        // 查询对应会话是否存在
+        SessionEntity sessionEntity = sessionDomainService.find(sessionId, userId);
+
+        if (sessionEntity == null) {
+            throw new BusinessException("会话不存在");
+        }
+
+        List<MessageEntity> conversationMessages = conversationDomainService.getConversationMessages(sessionId);
+        return MessageAssembler.toDTOs(conversationMessages);
     }
 
     public SseEmitter previewAgent(AgentPreviewRequest previewRequest, String userId) {
