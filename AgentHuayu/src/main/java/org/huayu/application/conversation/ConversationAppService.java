@@ -163,7 +163,6 @@ public class ConversationAppService {
         chatContext.setModel(model);
         chatContext.setProvider(provider);
         chatContext.setLlmModelConfig(llmModelConfig);
-        chatContext.setFileUrls(chatRequest.getFileUrls());
         // 6. 设置上下文信息和消息历史
         setupContextAndHistory(chatContext);
 

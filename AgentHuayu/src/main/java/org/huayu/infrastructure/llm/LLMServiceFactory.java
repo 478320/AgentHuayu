@@ -34,9 +34,13 @@ public class LLMServiceFactory {
     public ChatModel getStrandClient(ProviderEntity provider, ModelEntity model) {
         org.huayu.domain.llm.model.config.ProviderConfig config = provider.getConfig();
 
-        ProviderConfig providerConfig = new ProviderConfig(config.getApiKey(), config.getBaseUrl(), model.getModelEndpoint(),
+        ProviderConfig providerConfig = new ProviderConfig(
+                config.getApiKey(),
+                config.getBaseUrl(),
+                model.getModelId(),
                 provider.getProtocol());
 
         return LLMProviderService.getStrand(provider.getProtocol(), providerConfig);
+
     }
 }
