@@ -36,7 +36,7 @@ public class PortalUserController {
     @GetMapping
     public Result<UserDTO> getUserInfo() {
         String userId = UserContext.getCurrentUserId();
-        return Result.success(userAppService.getUserInfo(userId));
+        return Result.success(userAppService.getUserInfo("1"));
     }
 
     /** 修改用户信息

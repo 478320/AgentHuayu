@@ -39,7 +39,7 @@ public class InfoRequirementService {
     // 存储被阻塞的工作流上下文
     private static final Map<String, AgentWorkflowContext> BLOCKING_INFO = new ConcurrentHashMap<>();
     // 最大尝试次数限制
-    private static final int MAX_INFO_CHECK_ATTEMPTS = 3;
+    private static final int MAX_INFO_CHECK_ATTEMPTS = 0;
 
 
     private final LLMServiceFactory llmServiceFactory;
@@ -139,14 +139,16 @@ public class InfoRequirementService {
             ChatModel chatLanguageModel = getStrandClient(context);
             
             // 构建请求
-            ChatRequest request = buildRequest(context);
+            ArrayList<ChatMessage> chatMessages = buildRequest(context);
 
             // attemptCount > 0 说明是后续的补充信息，补充信息没有被加入上下文中，需要手动添加
             if (attemptCount > 0){
-                request.messages().add(new UserMessage(userMessage));
+                chatMessages.add(new UserMessage(userMessage));
             }
 
-            request.messages().add(new SystemMessage(AgentPromptTemplates.getInfoAnalysisPrompt()));
+            chatMessages.add(new SystemMessage(AgentPromptTemplates.getInfoAnalysisPrompt()));
+            ChatRequest.Builder chatRequestBuilder = new ChatRequest.Builder();
+            ChatRequest request = chatRequestBuilder.messages(chatMessages).build();
             ChatResponse chat = chatLanguageModel.chat(request);
             String text = chat.aiMessage().text();
             
@@ -233,9 +235,9 @@ public class InfoRequirementService {
     /**
      * 构建请求
      */
-    private <T> ChatRequest buildRequest(AgentWorkflowContext<T> context) {
-        List<ChatMessage> chatMessages = new ArrayList<>();
-        ChatRequest.Builder chatRequestBuilder = new ChatRequest.Builder();
+    private ArrayList<ChatMessage> buildRequest(AgentWorkflowContext<?> context) {
+        new SystemMessage(AgentPromptTemplates.getInfoAnalysisPrompt());
+        ArrayList<ChatMessage> chatMessages = new ArrayList<>();
         for (MessageEntity messageEntity : context.getChatContext().getMessageHistory()) {
             Role role = messageEntity.getRole();
             String content = messageEntity.getContent();
@@ -247,8 +249,7 @@ public class InfoRequirementService {
                 chatMessages.add(new AiMessage(content));
             }
         }
-        chatRequestBuilder.messages(chatMessages);
-        return chatRequestBuilder.build();
+        return chatMessages;
     }
     
     /**

@@ -65,9 +65,6 @@ public class UserDomainService {
         String nickname = generateNickname();
         userEntity.setNickname(nickname);
         userRepository.checkInsert(userEntity);
-        UserSettingsEntity userSettingsEntity = new UserSettingsEntity();
-        userSettingsEntity.setUserId(userEntity.getId());
-        settingsRepository.insert(userSettingsEntity);
         return userEntity;
     }
 

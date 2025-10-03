@@ -93,10 +93,11 @@ public class TaskSplitHandler extends AbstractAgentHandler {
 
             // 获取流式模型客户端
             StreamingChatModel streamingClient = getStreamingClient(context);
-            
+
+            ArrayList<ChatMessage> otherMessages = new ArrayList<>();
+            otherMessages.add(new SystemMessage(AgentPromptTemplates.getDecompositionPrompt()));
             // 构建任务拆分请求
-            ChatRequest chatRequest = context.getChatContext().prepareChatRequest();
-            chatRequest.messages().add(new SystemMessage(AgentPromptTemplates.getDecompositionPrompt()));
+            ChatRequest chatRequest = context.getChatContext().prepareChatRequest(otherMessages);
 
             // 不阻塞，使用Future跟踪任务拆分完成
             CompletableFuture<Boolean> splitTaskFuture = new CompletableFuture<>();

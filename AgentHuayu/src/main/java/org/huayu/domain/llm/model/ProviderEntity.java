@@ -30,8 +30,18 @@ public class ProviderEntity extends BaseEntity {
     @TableField(typeHandler = ProviderConfigConverter.class)
     private ProviderConfig config;
 
+    private String modelEndPoint;
+
     private Boolean isOfficial;
     private Boolean status;
+
+    public String getModelEndPoint() {
+        return modelEndPoint;
+    }
+
+    public void setModelEndPoint(String modelEndPoint) {
+        this.modelEndPoint = modelEndPoint;
+    }
 
     public void setConfig(ProviderConfig config) {
         this.config = config;

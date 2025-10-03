@@ -33,7 +33,7 @@ import java.util.List;
  * 大模型服务商
  */
 @RestController
-@RequestMapping("/llm")
+@RequestMapping("/llms")
 public class PortalLLMController {
 
 

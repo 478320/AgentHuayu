@@ -95,7 +95,7 @@ public class ConversationAppService {
         MessageTransport<SseEmitter> transport = transportFactory
                 .getTransport(MessageTransportFactory.TRANSPORT_TYPE_SSE);
 
-        // 3. 获取适合的消息处理器 (根据agent类型)
+        // 3. 获取适合的消息处理器 (根据 agent类型)
         AbstractMessageHandler handler = messageHandlerFactory.getHandler(environment.getAgent());
 
         // 处理对话

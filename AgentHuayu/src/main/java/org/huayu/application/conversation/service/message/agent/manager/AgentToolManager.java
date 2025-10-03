@@ -56,6 +56,11 @@ public class AgentToolManager {
      */
     public List<String> getAvailableTools() {
         // 这里可以从配置、数据库等获取可用工具
-        return new ArrayList<>();
+
+        ArrayList<String> urls = new ArrayList<>();
+
+        urls.add("http://localhost:9195/order/sse");
+
+        return urls;
     }
 } 

@@ -19,6 +19,7 @@ import org.huayu.domain.llm.model.ProviderEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -142,7 +143,7 @@ public class ChatContext {
         this.messageHistory = messageHistory;
     }
 
-    public ChatRequest prepareChatRequest() {
+    public ChatRequest prepareChatRequest(ArrayList<ChatMessage> otherMessage) {
         // 构建聊天消息列表
         List<ChatMessage> chatMessages = new ArrayList<>();
         ChatRequest.Builder chatRequestBuilder =
@@ -179,6 +180,10 @@ public class ChatContext {
         parameters.modelName(this.getModel().getModelId());
         parameters.topP(this.getLlmModelConfig().getTopP())
                 .temperature(this.getLlmModelConfig().getTemperature());
+        // 处理额外消息
+        if (Objects.nonNull(otherMessage)) {
+            chatMessages.addAll(otherMessage);
+        }
 
         // 设置消息和参数
         chatRequestBuilder.messages(chatMessages);

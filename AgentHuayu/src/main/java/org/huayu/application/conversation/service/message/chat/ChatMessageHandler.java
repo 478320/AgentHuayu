@@ -41,7 +41,7 @@ public class ChatMessageHandler extends AbstractMessageHandler {
         T connection = transport.createConnection(CONNECTION_TIMEOUT);
 
         // 准备LLM请求
-        ChatRequest llmRequest = chatContext.prepareChatRequest();
+        ChatRequest llmRequest = chatContext.prepareChatRequest(null);
 
         // 获取LLM客户端
         StreamingChatModel llmClient = llmServiceFactory.getStreamingClient(

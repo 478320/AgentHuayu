@@ -72,6 +72,7 @@ public class ProviderAssembler {
         provider.setName(request.getName());
         provider.setDescription(request.getDescription());
         provider.setConfig(request.getConfig());  // 会自动加密
+        provider.setModelEndPoint(request.getConfig().getBaseUrl());
         provider.setStatus(request.getStatus());
         provider.setCreatedAt(LocalDateTime.now());
         provider.setUpdatedAt(LocalDateTime.now());
